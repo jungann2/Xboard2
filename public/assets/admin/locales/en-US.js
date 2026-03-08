@@ -524,6 +524,12 @@ window.XBOARD_TRANSLATIONS['en-US'] = {
             "placeholder": "Enter lock duration in minutes",
             "description": "Duration of the account lock in minutes"
           }
+        },
+        "appDebug": {
+          "enable": {
+            "label": "Debug Mode",
+            "description": "When enabled, the Laravel Debugbar toolbar will appear at the bottom of all pages, showing SQL queries, request timing, and other debug info. Recommended to enable only temporarily for troubleshooting."
+          }
         }
       }
     },

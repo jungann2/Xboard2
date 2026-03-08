@@ -203,6 +203,7 @@ class ConfigController extends Controller
                 'password_limit_enable' => (bool) admin_setting('password_limit_enable', 1),
                 'password_limit_count' => admin_setting('password_limit_count', 5),
                 'password_limit_expire' => admin_setting('password_limit_expire', 60),
+                'app_debug' => (bool) config('app.debug'),
                 // 保持向后兼容
                 'recaptcha_enable' => (bool) admin_setting('captcha_enable', 0)
             ],
@@ -229,10 +230,34 @@ class ConfigController extends Controller
                 $themeService = app(ThemeService::class);
                 $themeService->switch($v);
             }
+            if ($k === 'app_debug') {
+                $this->updateEnvValue('APP_DEBUG', $v ? 'true' : 'false');
+                continue;
+            }
             admin_setting([$k => $v]);
         }
 
         return $this->success(true);
+    }
+
+    /**
+     * 更新 .env 文件中的配置值
+     */
+    private function updateEnvValue(string $key, string $value): void
+    {
+        $envPath = base_path('.env');
+        if (!file_exists($envPath)) return;
+
+        $content = file_get_contents($envPath);
+        $pattern = "/^{$key}=.*/m";
+
+        if (preg_match($pattern, $content)) {
+            $content = preg_replace($pattern, "{$key}={$value}", $content);
+        } else {
+            $content .= "\n{$key}={$value}\n";
+        }
+
+        file_put_contents($envPath, $content);
     }
 
     /**

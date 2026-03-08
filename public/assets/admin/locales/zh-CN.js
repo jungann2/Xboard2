@@ -444,6 +444,12 @@ window.XBOARD_TRANSLATIONS['zh-CN'] = {
             "placeholder": "输入锁定时长（分钟）",
             "description": "账户锁定的持续时间（分钟）"
           }
+        },
+        "appDebug": {
+          "enable": {
+            "label": "调试模式",
+            "description": "开启后所有页面底部显示 Laravel Debugbar 调试工具栏，包含 SQL 查询、请求耗时等信息。建议仅在排查问题时临时开启。"
+          }
         }
       }
     },

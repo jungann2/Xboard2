@@ -460,6 +460,12 @@ window.XBOARD_TRANSLATIONS['ko-KR'] = {
             "placeholder": "잠금 기간을 시간 단위로 입력",
             "description": "계정 잠금 기간(시간)"
           }
+        },
+        "appDebug": {
+          "enable": {
+            "label": "디버그 모드",
+            "description": "활성화하면 모든 페이지 하단에 Laravel Debugbar 디버그 도구 모음이 표시되며, SQL 쿼리, 요청 시간 등의 디버그 정보를 확인할 수 있습니다. 문제 해결 시에만 임시로 활성화하는 것을 권장합니다."
+          }
         }
       }
     },
