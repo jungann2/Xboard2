@@ -75,3 +75,20 @@ docker compose up -d
 - If you need to use MySQL, please install it separately and redeploy
 - Code changes require service restart to take effect
 - You can configure Nginx reverse proxy to use port 80 
+
+### 生产环境安全配置
+
+部署完成后，上线前请在 `.env` 中完成以下配置：
+
+```env
+# 关闭调试模式（必须）
+APP_DEBUG=false
+
+# 设置为生产环境
+APP_ENV=production
+
+# 限制 CORS 跨域为你的实际域名
+CORS_ALLOWED_ORIGINS=https://你的域名.com
+```
+
+详细说明请参考 [README 安全配置章节](../../README.md#-安全配置说明)。

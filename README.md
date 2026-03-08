@@ -91,6 +91,44 @@ docker compose restart
 
 2. For aaPanel installations, restart the Octane daemon process
 
+## 🔒 安全配置说明
+
+### 生产环境部署前必读
+
+#### 1. 关闭调试模式
+
+`.env` 文件中 `APP_DEBUG` 控制是否显示详细错误信息。开发测试时可设为 `true`，生产环境必须设为 `false`，否则会暴露数据库凭据、APP_KEY 等敏感信息。
+
+```env
+APP_DEBUG=false
+```
+
+#### 2. CORS 跨域配置
+
+默认允许所有域名跨域访问（`*`）。生产环境建议在 `.env` 中限制为你的实际域名，多个域名用逗号分隔：
+
+```env
+CORS_ALLOWED_ORIGINS=https://你的域名.com,https://www.你的域名.com
+```
+
+不设置此项则保持默认 `*`（允许所有），适用于开发测试。
+
+#### 3. Session Cookie 安全
+
+- `secure`：生产环境（`APP_ENV=production`）自动启用 HTTPS-only Cookie，开发环境不受影响
+- `same_site`：默认 `lax`，防止跨站请求伪造
+
+如需自定义，在 `.env` 中设置：
+
+```env
+SESSION_SECURE_COOKIE=true
+SESSION_SAME_SITE=lax
+```
+
+#### 4. 内存限制
+
+用户导出、群发邮件等大数据量操作的单请求内存上限为 512MB，防止异常请求耗尽服务器内存。正常使用不受影响，可满足数十万用户规模的导出需求。
+
 ## 🤝 Contributing
 
 Issues and Pull Requests are welcome to help improve the project.

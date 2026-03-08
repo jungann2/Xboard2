@@ -856,8 +856,8 @@ window.XBOARD_TRANSLATIONS['zh-CN'] = {
         "description": "配置 Clash 的订阅模板格式"
       },
       "clashmeta": {
-        "title": "Clash Meta 订阅模板",
-        "description": "配置 Clash Meta 的订阅模板格式"
+        "title": "FlClash/Clash Meta 订阅模板",
+        "description": "配置 FlClash/Clash Meta 的订阅模板格式"
       },
       "stash": {
         "title": "Stash 订阅模板",

@@ -31,7 +31,7 @@ class UniProxyController extends Controller
     // 后端获取用户
     public function user(Request $request)
     {
-        ini_set('memory_limit', -1);
+        ini_set('memory_limit', '512M');
         $node = $this->getNodeInfo($request);
         $nodeType = $node->type;
         $nodeId = $node->id;

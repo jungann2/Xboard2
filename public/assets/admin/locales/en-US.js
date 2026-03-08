@@ -851,8 +851,8 @@ window.XBOARD_TRANSLATIONS['en-US'] = {
         "description": "Configure subscription template format for Clash"
       },
       "clashmeta": {
-        "title": "Clash Meta Template",
-        "description": "Configure subscription template format for Clash Meta"
+        "title": "FlClash/Clash Meta Template",
+        "description": "Configure subscription template format for FlClash/Clash Meta"
       },
       "stash": {
         "title": "Stash Template",

@@ -261,7 +261,7 @@ class UserController extends Controller
      */
     public function dumpCSV(Request $request)
     {
-        ini_set('memory_limit', '-1');
+        ini_set('memory_limit', '512M');
         gc_enable(); // 启用垃圾回收
 
         // 优化查询：使用with预加载plan关系，避免N+1问题
@@ -438,7 +438,7 @@ class UserController extends Controller
 
     public function sendMail(UserSendMail $request)
     {
-        ini_set('memory_limit', '-1');
+        ini_set('memory_limit', '512M');
         $sortType = in_array($request->input('sort_type'), ['ASC', 'DESC']) ? $request->input('sort_type') : 'DESC';
         $sort = $request->input('sort') ? $request->input('sort') : 'created_at';
         $builder = User::orderBy($sort, $sortType);

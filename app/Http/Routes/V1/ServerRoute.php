@@ -16,7 +16,7 @@ class ServerRoute
         ], function ($router) {
             $router->group([
                 'prefix' => 'UniProxy',
-                'middleware' => 'server'
+                'middleware' => ['server', 'throttle:120,1']
             ], function ($route) {
                 $route->get('config', [UniProxyController::class, 'config']);
                 $route->get('user', [UniProxyController::class, 'user']);

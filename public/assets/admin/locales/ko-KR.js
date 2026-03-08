@@ -786,8 +786,8 @@ window.XBOARD_TRANSLATIONS['ko-KR'] = {
         "description": "Clash의 구독 템플릿 형식 설정"
       },
       "clashmeta": {
-        "title": "Clash Meta 템플릿",
-        "description": "Clash Meta의 구독 템플릿 형식 설정"
+        "title": "FlClash/Clash Meta 템플릿",
+        "description": "FlClash/Clash Meta의 구독 템플릿 형식 설정"
       },
       "stash": {
         "title": "Stash 템플릿",

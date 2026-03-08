@@ -44,7 +44,7 @@ class Kernel extends HttpKernel
 //            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
 //            \Illuminate\Session\Middleware\StartSession::class,
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
-            // \Illuminate\Routing\Middleware\ThrottleRequests::class . ':api',
+            \Illuminate\Routing\Middleware\ThrottleRequests::class . ':api,60,1',
             // \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\ForceJson::class,
             \App\Http\Middleware\Language::class,
