@@ -25,6 +25,66 @@ Xboard2 是一个基于 Laravel 11 构建的现代面板系统，专注于提供
 
 > 💡 Debian 推荐理由：官方源直接提供 PHP 8.2，Docker 支持最稳定，系统开销最小。Ubuntu 同样兼容，CentOS 需通过 Remi 源安装 PHP 8.2。
 
+## 📦 Installation Guide 📦 安装教程
+
+### 方式一：Docker Compose 一键部署（推荐）/ Method 1: Docker Compose (Recommended)
+
+#### 1️⃣ 安装 Docker / Install Docker
+
+```bash
+curl -fsSL https://get.docker.com | sh
+systemctl enable --now docker
+```
+
+#### 2️⃣ 克隆项目并安装 / Clone & Install
+
+```bash
+git clone -b compose --depth 1 https://github.com/jungann2/Xboard2 && \
+cd Xboard2 && \
+docker compose run -it --rm \
+    -e ENABLE_SQLITE=true \
+    -e ENABLE_REDIS=true \
+    -e ADMIN_ACCOUNT=admin@demo.com \
+    web php artisan xboard:install && \
+docker compose up -d
+```
+
+#### 3️⃣ 访问面板 / Access Panel
+
+> 🌐 浏览器访问 / Visit：`http://服务器IP:7001`
+> ⚠️ 请务必保存安装时显示的管理员账号密码 / Save the admin credentials shown during installation
+
+#### 4️⃣ 常用命令 / Common Commands
+
+```bash
+# 查看运行状态 / Check status
+docker compose ps
+
+# 查看日志 / View logs
+docker compose logs -f
+
+# 重启服务 / Restart
+docker compose restart
+
+# 停止服务 / Stop
+docker compose down
+
+# 更新版本 / Update
+git pull && docker compose pull && docker compose up -d
+```
+
+### 方式二：宝塔面板 + Docker / Method 2: aaPanel + Docker
+
+参考详细文档 / See detailed guide：[Deploy with aaPanel + Docker](./docs/en/installation/aapanel-docker.md)
+
+### 方式三：宝塔面板（LNMP）/ Method 3: aaPanel (LNMP)
+
+参考详细文档 / See detailed guide：[Deploy with aaPanel](./docs/en/installation/aapanel.md)
+
+### 方式四：1Panel / Method 4: 1Panel
+
+参考详细文档 / See detailed guide：[Deploy with 1Panel](./docs/en/installation/1panel.md)
+
 ## ✨ Features ✨ 特色
 
 - 🚀 Built with Laravel 12 + Octane for significant performance gains
