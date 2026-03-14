@@ -1,6 +1,6 @@
 # Quick Deployment Guide for 1Panel
 
-This guide explains how to deploy Xboard using 1Panel.
+This guide explains how to deploy Xboard2 using 1Panel.
 
 ## 1. Environment Preparation
 
@@ -18,8 +18,8 @@ sudo bash quick_start.sh
    - MySQL 5.7 (Use MariaDB for ARM architecture)
 
 2. Create Database:
-   - Database name: `xboard`
-   - Username: `xboard`
+   - Database name: `xboard2`
+   - Username: `xboard2`
    - Access rights: All hosts (%)
    - Save the database password for installation
 
@@ -28,7 +28,7 @@ sudo bash quick_start.sh
 1. Add Website:
    - Go to "Website" > "Create Website" > "Reverse Proxy"
    - Domain: Enter your domain
-   - Code: `xboard`
+   - Code: `xboard2`
    - Proxy address: `127.0.0.1:7001`
 
 2. Configure Reverse Proxy:
@@ -50,10 +50,10 @@ location ^~ / {
 }
 ```
 
-3. Install Xboard:
+3. Install Xboard2:
 ```bash
 # Enter site directory
-cd /opt/1panel/apps/openresty/openresty/www/sites/xboard/index
+cd /opt/1panel/apps/openresty/openresty/www/sites/xboard2/index
 
 # Install Git (if not installed)
 ## Ubuntu/Debian
@@ -62,7 +62,7 @@ apt update && apt install -y git
 yum update && yum install -y git
 
 # Clone repository
-git clone -b compose --depth 1 https://github.com/cedar2025/Xboard ./
+git clone -b compose --depth 1 https://github.com/jungann2/Xboard2 ./
 
 # Configure Docker Compose
 ```
@@ -132,8 +132,8 @@ docker compose run -it --rm web php artisan xboard:install
      2. If connection fails, go to: Database -> Select Database -> Connection Info -> Container Connection, and use the "Host" value
      3. If using external database, enter your actual database host
    - Database Port: `3306` (default port unless configured otherwise)
-   - Database Name: `xboard` (the database created earlier)
-   - Database User: `xboard` (the user created earlier)
+   - Database Name: `xboard2` (the database created earlier)
+   - Database User: `xboard2` (the user created earlier)
    - Database Password: Enter the password saved earlier
 
 2. Redis Configuration

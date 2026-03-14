@@ -1,6 +1,6 @@
 # V2board 1.7.4 Migration Guide
 
-This guide explains how to migrate from V2board version 1.7.4 to Xboard.
+This guide explains how to migrate from V2board version 1.7.4 to Xboard2.
 
 ### 1. Database Changes Overview
 
@@ -9,7 +9,7 @@ This guide explains how to migrate from V2board version 1.7.4 to Xboard.
 
 ### 2. Prerequisites
 
-⚠️ Please complete the basic Xboard installation first (SQLite not supported):
+⚠️ Please complete the basic Xboard2 installation first (SQLite not supported):
 - [Docker Compose Deployment](../installation/docker-compose.md)
 - [aaPanel + Docker Deployment](../installation/aapanel-docker.md)
 - [aaPanel Deployment](../installation/aapanel.md)

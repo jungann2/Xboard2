@@ -1,6 +1,6 @@
 # Quick Deployment Guide with Docker Compose
 
-This guide explains how to quickly deploy Xboard using Docker Compose. By default, it uses SQLite database, eliminating the need for a separate MySQL installation.
+This guide explains how to quickly deploy Xboard2 using Docker Compose. By default, it uses SQLite database, eliminating the need for a separate MySQL installation.
 
 ### 1. Environment Preparation
 
@@ -17,8 +17,8 @@ systemctl start docker
 
 1. Get project files:
 ```bash
-git clone -b compose --depth 1 https://github.com/cedar2025/Xboard
-cd Xboard
+git clone -b compose --depth 1 https://github.com/jungann2/Xboard2
+cd Xboard2
 ```
 
 2. Install database:  
@@ -51,14 +51,14 @@ docker compose up -d
 > 💡 Important Note: Update commands may vary depending on your installed version:
 > - For recent installations (new version), use:
 ```bash
-cd Xboard
+cd Xboard2
 docker compose pull && \
 docker compose run -it --rm web php artisan xboard:update && \
 docker compose up -d
 ```
 > - For older installations, replace `web` with `xboard`:
 ```bash
-cd Xboard
+cd Xboard2
 docker compose pull && \
 docker compose run -it --rm xboard php artisan xboard:update && \
 docker compose up -d

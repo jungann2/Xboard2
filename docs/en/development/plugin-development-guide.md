@@ -1,4 +1,4 @@
-# XBoard Plugin Development Guide
+# Xboard2 Plugin Development Guide
 
 ## 📦 Plugin Structure
 
@@ -136,7 +136,7 @@ $enabled = $this->isPluginEnabled();
 
 ### Popular Hooks (Recommended to follow)
 
-XBoard has built-in hooks for many business-critical nodes. Plugin developers can flexibly extend through `filter` or `listen` methods. Here are the most commonly used and valuable hooks:
+Xboard2 has built-in hooks for many business-critical nodes. Plugin developers can flexibly extend through `filter` or `listen` methods. Here are the most commonly used and valuable hooks:
 
 | Hook Name                 | Type   | Typical Parameters       | Description      |
 | ------------------------- | ------ | ----------------------- | ---------------- |
@@ -681,7 +681,7 @@ Artisan::call('other-plugin:command', ['arg' => 'value']);
 
 ### Summary
 
-The plugin command system provides powerful extension capabilities for XBoard:
+The plugin command system provides powerful extension capabilities for Xboard2:
 
 - 🚀 **Development Efficiency**: Quickly create management commands
 - 🔧 **Operational Convenience**: Automate daily operations

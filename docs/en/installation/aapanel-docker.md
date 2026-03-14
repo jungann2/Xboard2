@@ -1,4 +1,4 @@
-# Xboard Deployment Guide for aaPanel + Docker Environment
+# Xboard2 Deployment Guide for aaPanel + Docker Environment
 
 ## Table of Contents
 1. [Requirements](#requirements)
@@ -56,7 +56,7 @@ In the aaPanel dashboard, install:
    - Database: Select MySQL
    - PHP Version: Select Pure Static
 
-#### 3.2 Deploy Xboard
+#### 3.2 Deploy Xboard2
 ```bash
 # Enter site directory
 cd /www/wwwroot/your-domain
@@ -66,7 +66,7 @@ chattr -i .user.ini
 rm -rf .htaccess 404.html 502.html index.html .user.ini
 
 # Clone repository
-git clone https://github.com/cedar2025/Xboard.git ./
+git clone https://github.com/jungann2/Xboard2.git ./
 
 # Prepare configuration file
 cp compose.sample.yaml compose.yaml
