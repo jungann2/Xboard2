@@ -27,7 +27,320 @@ Xboard2 是一个基于 Laravel 11 构建的现代面板系统，专注于提供
 
 ## 📦 Installation Guide 📦 安装教程
 
-### 方式一：Docker Compose 一键部署（推荐）/ Method 1: Docker Compose (Recommended)
+### 方式一：Debian 12 专用安装（推荐）/ Method 1: Debian 12 Dedicated (Recommended)
+
+#### 1️⃣ 更新系统并安装依赖 / Update System & Install Dependencies
+
+root 用户执行：
+```bash
+apt update -y && apt install -y curl socat wget
+```
+
+非 root 用户执行：
+```bash
+sudo apt update -y && sudo apt install -y curl socat wget
+```
+
+#### 2️⃣ 安装 PHP 8.2 及扩展 / Install PHP 8.2 & Extensions
+
+```bash
+apt install -y php8.2 php8.2-cli php8.2-fpm php8.2-mysql php8.2-sqlite3 \
+    php8.2-mbstring php8.2-xml php8.2-curl php8.2-zip php8.2-gd \
+    php8.2-redis php8.2-bcmath php8.2-intl php8.2-readline
+```
+
+#### 3️⃣ 安装 MySQL / Redis / Nginx / Install MySQL / Redis / Nginx
+
+```bash
+apt install -y mariadb-server redis-server nginx
+systemctl enable --now mariadb redis-server nginx
+```
+
+#### 4️⃣ 配置数据库 / Configure Database
+
+```bash
+mysql -u root -e "CREATE DATABASE xboard2 CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+mysql -u root -e "CREATE USER 'xboard2'@'localhost' IDENTIFIED BY '你的数据库密码';"
+mysql -u root -e "GRANT ALL PRIVILEGES ON xboard2.* TO 'xboard2'@'localhost';"
+mysql -u root -e "FLUSH PRIVILEGES;"
+```
+
+#### 5️⃣ 安装 Composer / Install Composer
+
+```bash
+curl -sS https://getcomposer.org/installer | php
+mv composer.phar /usr/local/bin/composer
+```
+
+#### 6️⃣ 克隆项目并安装 / Clone & Install
+
+```bash
+cd /var/www
+git clone https://github.com/jungann2/Xboard2.git
+cd Xboard2
+composer install --no-dev --optimize-autoloader
+cp .env.example .env
+php artisan key:generate
+```
+
+编辑 `.env` 文件，配置数据库连接：
+```bash
+nano .env
+```
+
+修改以下字段：
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=xboard2
+DB_USERNAME=xboard2
+DB_PASSWORD=你的数据库密码
+
+REDIS_HOST=127.0.0.1
+```
+
+#### 7️⃣ 初始化并运行 / Initialize & Run
+
+```bash
+php artisan xboard:install
+php artisan migrate --force
+chown -R www-data:www-data /var/www/Xboard2
+chmod -R 755 /var/www/Xboard2/storage
+```
+
+#### 8️⃣ 配置 Nginx / Configure Nginx
+
+```bash
+nano /etc/nginx/sites-available/xboard2
+```
+
+写入以下内容（将 `你的域名` 替换为实际域名）：
+```nginx
+server {
+    listen 80;
+    server_name 你的域名;
+    root /var/www/Xboard2/public;
+    index index.php;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        fastcgi_pass unix:/run/php/php8.2-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+    location ~ /\.(?!well-known).* {
+        deny all;
+    }
+}
+```
+
+启用站点：
+```bash
+ln -s /etc/nginx/sites-available/xboard2 /etc/nginx/sites-enabled/
+nginx -t && systemctl reload nginx
+```
+
+#### 9️⃣ 配置队列和定时任务 / Configure Queue & Cron
+
+```bash
+# 添加定时任务
+(crontab -l 2>/dev/null; echo "* * * * * cd /var/www/Xboard2 && php artisan schedule:run >> /dev/null 2>&1") | crontab -
+
+# 安装 Supervisor 管理队列
+apt install -y supervisor
+```
+
+创建 Supervisor 配置：
+```bash
+nano /etc/supervisor/conf.d/xboard2.conf
+```
+
+写入：
+```ini
+[program:xboard2-octane]
+process_name=%(program_name)s
+command=php /var/www/Xboard2/artisan octane:start --host=127.0.0.1 --port=7001
+autostart=true
+autorestart=true
+user=www-data
+redirect_stderr=true
+stdout_logfile=/var/log/xboard2-octane.log
+```
+
+启动：
+```bash
+supervisorctl reread && supervisorctl update && supervisorctl start xboard2-octane
+```
+
+> 🌐 浏览器访问 / Visit：`http://你的域名`
+> ⚠️ 请务必保存安装时显示的管理员账号密码
+
+---
+
+### 方式二：Ubuntu 22.04+ 专用安装 / Method 2: Ubuntu 22.04+ Dedicated
+
+#### 1️⃣ 更新系统并安装依赖 / Update System & Install Dependencies
+
+root 用户执行：
+```bash
+apt update -y && apt install -y curl socat wget software-properties-common
+```
+
+非 root 用户执行：
+```bash
+sudo apt update -y && sudo apt install -y curl socat wget software-properties-common
+```
+
+#### 2️⃣ 添加 PHP 源并安装 / Add PHP Repository & Install
+
+Ubuntu 官方源可能不含 PHP 8.2，需添加 PPA：
+```bash
+add-apt-repository ppa:ondrej/php -y
+apt update -y
+apt install -y php8.2 php8.2-cli php8.2-fpm php8.2-mysql php8.2-sqlite3 \
+    php8.2-mbstring php8.2-xml php8.2-curl php8.2-zip php8.2-gd \
+    php8.2-redis php8.2-bcmath php8.2-intl php8.2-readline
+```
+
+#### 3️⃣ 安装 MySQL / Redis / Nginx / Install MySQL / Redis / Nginx
+
+```bash
+apt install -y mysql-server redis-server nginx
+systemctl enable --now mysql redis-server nginx
+```
+
+#### 4️⃣ 配置数据库 / Configure Database
+
+```bash
+mysql -u root -e "CREATE DATABASE xboard2 CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;"
+mysql -u root -e "CREATE USER 'xboard2'@'localhost' IDENTIFIED BY '你的数据库密码';"
+mysql -u root -e "GRANT ALL PRIVILEGES ON xboard2.* TO 'xboard2'@'localhost';"
+mysql -u root -e "FLUSH PRIVILEGES;"
+```
+
+#### 5️⃣ 安装 Composer / Install Composer
+
+```bash
+curl -sS https://getcomposer.org/installer | php
+mv composer.phar /usr/local/bin/composer
+```
+
+#### 6️⃣ 克隆项目并安装 / Clone & Install
+
+```bash
+cd /var/www
+git clone https://github.com/jungann2/Xboard2.git
+cd Xboard2
+composer install --no-dev --optimize-autoloader
+cp .env.example .env
+php artisan key:generate
+```
+
+编辑 `.env` 文件，配置数据库连接：
+```bash
+nano .env
+```
+
+修改以下字段：
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=xboard2
+DB_USERNAME=xboard2
+DB_PASSWORD=你的数据库密码
+
+REDIS_HOST=127.0.0.1
+```
+
+#### 7️⃣ 初始化并运行 / Initialize & Run
+
+```bash
+php artisan xboard:install
+php artisan migrate --force
+chown -R www-data:www-data /var/www/Xboard2
+chmod -R 755 /var/www/Xboard2/storage
+```
+
+#### 8️⃣ 配置 Nginx / Configure Nginx
+
+```bash
+nano /etc/nginx/sites-available/xboard2
+```
+
+写入以下内容（将 `你的域名` 替换为实际域名）：
+```nginx
+server {
+    listen 80;
+    server_name 你的域名;
+    root /var/www/Xboard2/public;
+    index index.php;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        fastcgi_pass unix:/run/php/php8.2-fpm.sock;
+        fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+
+    location ~ /\.(?!well-known).* {
+        deny all;
+    }
+}
+```
+
+启用站点：
+```bash
+ln -s /etc/nginx/sites-available/xboard2 /etc/nginx/sites-enabled/
+nginx -t && systemctl reload nginx
+```
+
+#### 9️⃣ 配置队列和定时任务 / Configure Queue & Cron
+
+```bash
+# 添加定时任务
+(crontab -l 2>/dev/null; echo "* * * * * cd /var/www/Xboard2 && php artisan schedule:run >> /dev/null 2>&1") | crontab -
+
+# 安装 Supervisor 管理队列
+apt install -y supervisor
+```
+
+创建 Supervisor 配置：
+```bash
+nano /etc/supervisor/conf.d/xboard2.conf
+```
+
+写入：
+```ini
+[program:xboard2-octane]
+process_name=%(program_name)s
+command=php /var/www/Xboard2/artisan octane:start --host=127.0.0.1 --port=7001
+autostart=true
+autorestart=true
+user=www-data
+redirect_stderr=true
+stdout_logfile=/var/log/xboard2-octane.log
+```
+
+启动：
+```bash
+supervisorctl reread && supervisorctl update && supervisorctl start xboard2-octane
+```
+
+> 🌐 浏览器访问 / Visit：`http://你的域名`
+> ⚠️ 请务必保存安装时显示的管理员账号密码
+
+---
+
+### 方式三：Docker Compose 一键部署 / Method 3: Docker Compose
 
 #### 1️⃣ 安装 Docker / Install Docker
 
@@ -73,15 +386,15 @@ docker compose down
 git pull && docker compose pull && docker compose up -d
 ```
 
-### 方式二：宝塔面板 + Docker / Method 2: aaPanel + Docker
+### 方式四：宝塔面板 + Docker / Method 4: aaPanel + Docker
 
 参考详细文档 / See detailed guide：[Deploy with aaPanel + Docker](./docs/en/installation/aapanel-docker.md)
 
-### 方式三：宝塔面板（LNMP）/ Method 3: aaPanel (LNMP)
+### 方式五：宝塔面板（LNMP）/ Method 5: aaPanel (LNMP)
 
 参考详细文档 / See detailed guide：[Deploy with aaPanel](./docs/en/installation/aapanel.md)
 
-### 方式四：1Panel / Method 4: 1Panel
+### 方式六：1Panel / Method 6: 1Panel
 
 参考详细文档 / See detailed guide：[Deploy with 1Panel](./docs/en/installation/1panel.md)
 
