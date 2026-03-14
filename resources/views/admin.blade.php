@@ -15,6 +15,7 @@
     };
   </script>
   <script type="module" crossorigin src="/assets/admin/assets/index.js"></script>
+  <script defer src="/assets/admin/assets/server-token-patch.js"></script>
   <link rel="stylesheet" crossorigin href="/assets/admin/assets/index.css" />
   <link rel="stylesheet" crossorigin href="/assets/admin/assets/vendor.css">
   <script src="/assets/admin/locales/en-US.js"></script>

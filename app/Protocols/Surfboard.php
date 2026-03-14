@@ -148,10 +148,10 @@ class Surfboard extends AbstractProtocol
             array_push($config, 'tls=true');
             if (data_get($protocol_settings, 'tls_settings')) {
                 $tlsSettings = data_get($protocol_settings, 'tls_settings');
-                if (!!data_get($tlsSettings, 'allowInsecure'))
-                    array_push($config, 'skip-cert-verify=' . ($tlsSettings['allowInsecure'] ? 'true' : 'false'));
-                if (!!data_get($tlsSettings, 'serverName'))
-                    array_push($config, "sni={$tlsSettings['serverName']}");
+                if (!!data_get($tlsSettings, 'allow_insecure'))
+                    array_push($config, 'skip-cert-verify=' . ($tlsSettings['allow_insecure'] ? 'true' : 'false'));
+                if (!!data_get($tlsSettings, 'server_name'))
+                    array_push($config, "sni={$tlsSettings['server_name']}");
             }
         }
         if (data_get($protocol_settings, 'network') === 'ws') {

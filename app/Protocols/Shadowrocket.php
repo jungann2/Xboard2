@@ -281,7 +281,7 @@ class Shadowrocket extends AbstractProtocol
                 }
                 if (data_get($protocol_settings, 'obfs.open')) {
                     $params["obfs"] = "xplus";
-                    $params["obfsParam"] = data_get($protocol_settings, 'obfs_settings.password');
+                    $params["obfsParam"] = data_get($protocol_settings, 'obfs.password');
                 }
                 $params['insecure'] = data_get($protocol_settings, 'tls.allow_insecure');
                 if (isset($server['ports']))

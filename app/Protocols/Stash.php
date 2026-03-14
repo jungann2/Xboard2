@@ -312,7 +312,7 @@ class Stash extends AbstractProtocol
 
         switch (data_get($protocol_settings, 'network')) {
             case 'tcp':
-                if ($headerType = data_get($protocol_settings, 'network_settings.header.type', 'tcp') != 'tcp') {
+                if (($headerType = data_get($protocol_settings, 'network_settings.header.type', 'tcp')) != 'tcp') {
                     $array['network'] = $headerType;
                     if ($httpOpts = array_filter([
                         'headers' => data_get($protocol_settings, 'network_settings.header.request.headers'),
@@ -442,8 +442,8 @@ class Stash extends AbstractProtocol
             'server' => $server['host'],
             'port' => $server['port'],
             'password' => $password,
-            'sni' => data_get($protocol_settings, 'tls_settings.server_name'),
-            'skip-cert-verify' => (bool) data_get($protocol_settings, 'tls_settings.allow_insecure', false),
+            'sni' => data_get($protocol_settings, 'tls.server_name'),
+            'skip-cert-verify' => (bool) data_get($protocol_settings, 'tls.allow_insecure', false),
             'udp' => true,
         ];
 

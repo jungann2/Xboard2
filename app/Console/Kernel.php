@@ -47,6 +47,7 @@ class Kernel extends ConsoleKernel
         //     $schedule->command('backup:database', ['true'])->daily()->onOneServer();
         // }
         $schedule->command('cleanup:expired-online-status')->everyMinute()->onOneServer()->withoutOverlapping(4);
+        $schedule->command('monitor:collect-local')->everyMinute()->onOneServer()->withoutOverlapping();
 
         app(PluginManager::class)->registerPluginSchedules($schedule);
 

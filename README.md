@@ -56,6 +56,15 @@ docker compose up -d
 - [Migrate from v2board 1.7.4](./docs/en/migration/v2board-1.7.4.md)
 - [Migrate from v2board 1.7.3](./docs/en/migration/v2board-1.7.3.md)
 
+## 💻 系统要求
+
+- 推荐系统：Debian 12 (Bookworm)，Ubuntu 22.04+ / CentOS 7+ 也可使用
+- PHP 8.2+、MySQL 5.7+（或 SQLite）、Redis
+- Docker 部署（推荐）或 LNMP 环境
+- 内存：≥ 512MB（含数据库和 Redis）
+
+> Debian 推荐理由：Xboard 依赖 PHP 8.2+、Redis、MySQL 等标准 LEMP 栈，Debian 12 官方源直接提供 PHP 8.2，Docker 支持最稳定，系统开销最小。Ubuntu 同样兼容，CentOS 需通过 Remi 源安装 PHP 8.2。
+
 ## 🛠️ Tech Stack
 
 - Backend: Laravel 11 + Octane

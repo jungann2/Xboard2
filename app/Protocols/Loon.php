@@ -203,7 +203,7 @@ class Loon extends AbstractProtocol
                 return '';
         }
         $network_settings = data_get($protocol_settings, 'network_settings', []);
-        switch ((string) data_get($network_settings, 'network')) {
+        switch ((string) data_get($protocol_settings, 'network')) {
             case 'tcp':
                 $config[] = 'transport=tcp';
                 if ($headerType = data_get($network_settings, 'header.type')) {
@@ -240,11 +240,11 @@ class Loon extends AbstractProtocol
             $server['host'],
             $server['port'],
             $password,
-            $protocol_settings['tls']['server_name'] ? "sni={$protocol_settings['tls']['server_name']}" : "(null)"
+            $protocol_settings['tls']['server_name'] ? "sni={$protocol_settings['tls']['server_name']}" : ""
         ];
         if (data_get($protocol_settings, 'tls.allow_insecure'))
             $config[] = "skip-cert-verify=true";
-        $config[] = "download-bandwidth=" . data_get($protocol_settings, 'bandwidth.download_bandwidth');
+        $config[] = "download-bandwidth=" . data_get($protocol_settings, 'bandwidth.down');
         $config[] = "udp=true";
         $config = array_filter($config);
         $uri = implode(',', $config);

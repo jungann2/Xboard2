@@ -58,6 +58,14 @@ class ServerSave extends FormRequest
         ],
         'socks' => [
         ],
+        'tuic' => [
+            'version' => 'nullable|integer',
+            'congestion_control' => 'nullable|string',
+            'alpn' => 'nullable|array',
+            'udp_relay_mode' => 'nullable|string',
+            'tls.server_name' => 'nullable|string',
+            'tls.allow_insecure' => 'nullable|boolean',
+        ],
         'naive' => [
             'tls' => 'required|integer',
             'tls_settings' => 'nullable|array',

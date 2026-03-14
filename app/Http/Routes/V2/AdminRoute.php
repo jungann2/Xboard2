@@ -18,6 +18,7 @@ use App\Http\Controllers\V2\Admin\PaymentController;
 use App\Http\Controllers\V2\Admin\SystemController;
 use App\Http\Controllers\V2\Admin\ThemeController;
 use App\Http\Controllers\V2\Admin\TrafficResetController;
+use App\Http\Controllers\V2\Admin\MonitorController;
 use Illuminate\Contracts\Routing\Registrar;
 
 class AdminRoute
@@ -38,6 +39,7 @@ class AdminRoute
                 $router->get('/getThemeTemplate', [ConfigController::class, 'getThemeTemplate']);
                 $router->post('/setTelegramWebhook', [ConfigController::class, 'setTelegramWebhook']);
                 $router->post('/testSendMail', [ConfigController::class, 'testSendMail']);
+                $router->post('/generateServerToken', [ConfigController::class, 'generateServerToken']);
             });
 
             // Plan
@@ -268,6 +270,17 @@ class AdminRoute
                 $router->get('stats', [TrafficResetController::class, 'stats']);
                 $router->get('user/{userId}/history', [TrafficResetController::class, 'userHistory']);
                 $router->post('reset-user', [TrafficResetController::class, 'resetUser']);
+            });
+
+            // Monitor
+            $router->group([
+                'prefix' => 'monitor'
+            ], function ($router) {
+                $router->get('/nodes', [MonitorController::class, 'nodes']);
+                $router->get('/local', [MonitorController::class, 'local']);
+                $router->get('/nodes/{nodeId}/history', [MonitorController::class, 'nodeHistory']);
+                $router->get('/local/history', [MonitorController::class, 'localHistory']);
+                $router->get('/api/stats', [MonitorController::class, 'stats']);
             });
         });
 

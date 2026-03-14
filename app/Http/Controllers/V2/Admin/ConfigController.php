@@ -241,6 +241,58 @@ class ConfigController extends Controller
     }
 
     /**
+     * 生成安全的通讯密钥（CSPRNG）
+     * POST /api/v2/admin/config/generateServerToken
+     * Body: { prefix?: string, suffix?: string, length?: int }
+     * Response: { token: string }
+     */
+    public function generateServerToken(Request $request)
+    {
+        $request->validate([
+            'prefix' => 'nullable|string|max:16|regex:/^[a-zA-Z0-9\-]*$/',
+            'suffix' => 'nullable|string|max:16|regex:/^[a-zA-Z0-9\-]*$/',
+            'length' => 'nullable|integer|min:32|max:64',
+        ]);
+
+        $length = (int) $request->input('length', 48);
+        // 使用 CSPRNG + rejection sampling 消除 modulo bias
+        $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        $charsLen = strlen($chars); // 62
+        $maxUnbiased = 256 - (256 % $charsLen); // 248，丢弃 248-255 的值
+        $token = '';
+        while (strlen($token) < $length) {
+            $bytes = openssl_random_pseudo_bytes($length * 2); // 多取一些以补偿丢弃
+            foreach (str_split($bytes) as $byte) {
+                $val = ord($byte);
+                if ($val < $maxUnbiased) {
+                    $token .= $chars[$val % $charsLen];
+                    if (strlen($token) >= $length) break;
+                }
+            }
+        }
+
+        $prefix = $request->input('prefix');
+        $suffix = $request->input('suffix');
+
+        if ($prefix !== null && $prefix !== '') {
+            $prefix = substr(preg_replace('/[^a-zA-Z0-9\-]/', '', $prefix), 0, 16);
+            if ($prefix !== '') {
+                $token = $prefix . '-' . $token;
+            }
+        }
+
+        if ($suffix !== null && $suffix !== '') {
+            $suffix = substr(preg_replace('/[^a-zA-Z0-9\-]/', '', $suffix), 0, 16);
+            if ($suffix !== '') {
+                $token = $token . '-' . $suffix;
+            }
+        }
+
+        return $this->success(['token' => $token]);
+    }
+
+
+    /**
      * 更新 .env 文件中的配置值
      */
     private function updateEnvValue(string $key, string $value): void

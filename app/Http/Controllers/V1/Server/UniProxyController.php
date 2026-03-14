@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Jobs\UpdateAliveDataJob;
 use App\Services\ServerService;
 use App\Services\UserService;
+use App\Services\MonitorHistoryService;
 use App\Utils\CacheKey;
 use App\Utils\Helper;
 use Illuminate\Http\Request;
@@ -243,6 +244,16 @@ class UniProxyController extends Controller
             'swap.used' => 'required|integer|min:0',
             'disk.total' => 'required|integer|min:0',
             'disk.used' => 'required|integer|min:0',
+            'network.sent' => 'nullable|integer|min:0',
+            'network.recv' => 'nullable|integer|min:0',
+            'disk_io.read' => 'nullable|integer|min:0',
+            'disk_io.write' => 'nullable|integer|min:0',
+            'hostname' => 'nullable|string|max:255|regex:/^[a-zA-Z0-9\-_.]+$/',
+            'uptime' => 'nullable|integer|min:0',
+            'cpu_model' => 'nullable|string|max:255',
+            'ipv4' => 'nullable|ip',
+            'ipv6' => 'nullable|ip',
+            'goroutines' => 'nullable|integer|min:0',
         ]);
 
         $nodeType = $node->type;
@@ -265,11 +276,59 @@ class UniProxyController extends Controller
             'updated_at' => now()->timestamp,
         ];
 
+        if (isset($data['network'])) {
+            $statusData['network'] = [
+                'sent' => (int) $data['network']['sent'],
+                'recv' => (int) $data['network']['recv'],
+            ];
+        }
+        if (isset($data['disk_io'])) {
+            $statusData['disk_io'] = [
+                'read' => (int) $data['disk_io']['read'],
+                'write' => (int) $data['disk_io']['write'],
+            ];
+        }
+        if (isset($data['hostname'])) {
+            $statusData['hostname'] = e($data['hostname']);
+        }
+        if (isset($data['uptime'])) {
+            $statusData['uptime'] = (int) $data['uptime'];
+        }
+        if (isset($data['cpu_model'])) {
+            $statusData['cpu_model'] = e($data['cpu_model']);
+        }
+        if (isset($data['ipv4'])) {
+            $statusData['ipv4'] = $data['ipv4'];
+        }
+        if (isset($data['ipv6'])) {
+            $statusData['ipv6'] = $data['ipv6'];
+        }
+        if (isset($data['goroutines'])) {
+            $statusData['goroutines'] = (int) $data['goroutines'];
+        }
+
         $cacheTime = max(300, (int) admin_setting('server_push_interval', 60) * 3);
         cache([
             CacheKey::get('SERVER_' . strtoupper($nodeType) . '_LOAD_STATUS', $nodeId) => $statusData,
             CacheKey::get('SERVER_' . strtoupper($nodeType) . '_LAST_LOAD_AT', $nodeId) => now()->timestamp,
         ], $cacheTime);
+
+        // 追加时序数据
+        $historyService = new MonitorHistoryService();
+        $historyKey = CacheKey::get('SERVER_' . strtoupper($nodeType) . '_MONITOR_HISTORY', $nodeId);
+        $historyPoint = [
+            'cpu' => $statusData['cpu'],
+            'mem_used' => $statusData['mem']['used'],
+        ];
+        if (isset($statusData['network'])) {
+            $historyPoint['network_sent'] = $statusData['network']['sent'];
+            $historyPoint['network_recv'] = $statusData['network']['recv'];
+        }
+        if (isset($statusData['disk_io'])) {
+            $historyPoint['disk_io_read'] = $statusData['disk_io']['read'];
+            $historyPoint['disk_io_write'] = $statusData['disk_io']['write'];
+        }
+        $historyService->appendPoint($historyKey, $historyPoint);
 
         return response()->json(['data' => true, "code" => 0, "message" => "success"]);
     }

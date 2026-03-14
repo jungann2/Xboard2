@@ -441,7 +441,6 @@ class SingBox extends AbstractProtocol
             'tls' => [
                 'enabled' => true,
                 'insecure' => (bool) data_get($protocol_settings, 'tls.allow_insecure', false),
-                'alpn' => data_get($protocol_settings, 'alpn', ['h3']),
             ]
         ];
 

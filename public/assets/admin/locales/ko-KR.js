@@ -147,6 +147,7 @@ window.XBOARD_TRANSLATIONS['ko-KR'] = {
   },
   "nav": {
     "dashboard": "대시보드",
+    "deviceMonitor": "장치 모니터링",
     "systemManagement": "시스템 관리",
     "systemConfig": "시스템 설정",
     "themeConfig": "테마 설정",
@@ -2138,6 +2139,7 @@ window.XBOARD_TRANSLATIONS['ko-KR'] = {
   },
   "sidebar": {
     "dashboard": "대시보드",
+    "deviceMonitor": "장치 모니터링",
     "systemManagement": "시스템 관리",
     "systemConfig": "시스템 설정",
     "themeConfig": "테마 설정",
@@ -2153,5 +2155,55 @@ window.XBOARD_TRANSLATIONS['ko-KR'] = {
     "couponManagement": "쿠폰 관리",
     "userManagement": "사용자 관리",
     "ticketManagement": "티켓 관리"
+  },
+  "monitor": {
+    "pageTitle": "장치 모니터링",
+    "localServer": "Xboard 서버",
+    "nodeSection": "노드 모니터링",
+    "settingsButton": "설정",
+    "status": {
+      "online": "온라인",
+      "offline": "오프라인",
+      "unknown": "미연결"
+    },
+    "systemInfo": {
+      "title": "시스템 정보",
+      "hostname": "호스트명",
+      "cpuModel": "CPU 모델",
+      "ipv4": "IPv4",
+      "ipv6": "IPv6",
+      "uptime": "가동 시간",
+      "uptimeFormat": "{days}일 {hours}시간"
+    },
+    "gauges": {
+      "cpu": "CPU",
+      "ram": "RAM",
+      "disk": "Disk",
+      "swap": "Swap"
+    },
+    "charts": {
+      "cpu": "CPU 사용률",
+      "ram": "메모리 사용",
+      "network": "네트워크 대역폭",
+      "diskIo": "디스크 I/O"
+    },
+    "runtime": {
+      "title": "런타임 정보",
+      "memory": "메모리",
+      "goroutines": "Goroutines",
+      "childNodes": "하위 노드"
+    },
+    "config": {
+      "localTitle": "로컬 카드 설정",
+      "nodesTitle": "노드 카드 설정",
+      "showSystemInfo": "시스템 정보",
+      "showGauges": "게이지",
+      "showCharts": "차트",
+      "showRuntime": "런타임 정보"
+    },
+    "error": {
+      "fetchFailed": "모니터링 데이터를 가져오지 못했습니다",
+      "lastOnline": "마지막 온라인"
+    }
   }
 };

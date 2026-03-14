@@ -1,5 +1,30 @@
 {
   "dependencies": {
     "chokidar": "^4.0.3"
+  },
+  "name": "xboard",
+  "version": "1.0.0",
+  "description": "<div align=\"center\">",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "vitest --run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jungann2/Xboard2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jungann2/Xboard2/issues"
+  },
+  "homepage": "https://github.com/jungann2/Xboard2#readme",
+  "devDependencies": {
+    "fast-check": "^4.6.0",
+    "vitest": "^4.0.18"
   }
 }

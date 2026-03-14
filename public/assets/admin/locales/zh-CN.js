@@ -150,6 +150,7 @@ window.XBOARD_TRANSLATIONS['zh-CN'] = {
   },
   "nav": {
     "dashboard": "仪表盘",
+    "deviceMonitor": "设备监控信息",
     "systemManagement": "系统管理",
     "systemConfig": "系统配置",
     "themeConfig": "主题配置",
@@ -3032,6 +3033,7 @@ window.XBOARD_TRANSLATIONS['zh-CN'] = {
   },
   "sidebar": {
     "dashboard": "仪表盘",
+    "deviceMonitor": "设备监控信息",
     "systemManagement": "系统管理",
     "systemConfig": "系统配置",
     "pluginManagement": "插件管理",
@@ -3048,5 +3050,55 @@ window.XBOARD_TRANSLATIONS['zh-CN'] = {
     "couponManagement": "优惠券管理",
     "userManagement": "用户管理",
     "ticketManagement": "工单管理"
+  },
+  "monitor": {
+    "pageTitle": "设备监控信息",
+    "localServer": "Xboard 服务器",
+    "nodeSection": "节点监控",
+    "settingsButton": "设置",
+    "status": {
+      "online": "在线",
+      "offline": "离线",
+      "unknown": "未连接"
+    },
+    "systemInfo": {
+      "title": "系统信息",
+      "hostname": "主机名",
+      "cpuModel": "CPU 型号",
+      "ipv4": "IPv4",
+      "ipv6": "IPv6",
+      "uptime": "运行时间",
+      "uptimeFormat": "{days}天{hours}小时"
+    },
+    "gauges": {
+      "cpu": "CPU",
+      "ram": "RAM",
+      "disk": "Disk",
+      "swap": "Swap"
+    },
+    "charts": {
+      "cpu": "CPU 使用率",
+      "ram": "内存使用",
+      "network": "网络带宽",
+      "diskIo": "磁盘 I/O"
+    },
+    "runtime": {
+      "title": "运行信息",
+      "memory": "内存",
+      "goroutines": "Goroutines",
+      "childNodes": "子节点"
+    },
+    "config": {
+      "localTitle": "本机卡片设置",
+      "nodesTitle": "节点卡片设置",
+      "showSystemInfo": "系统信息",
+      "showGauges": "仪表盘",
+      "showCharts": "图表",
+      "showRuntime": "运行信息"
+    },
+    "error": {
+      "fetchFailed": "监控数据获取失败",
+      "lastOnline": "最后在线"
+    }
   }
 };

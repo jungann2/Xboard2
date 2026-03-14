@@ -150,6 +150,7 @@ window.XBOARD_TRANSLATIONS['en-US'] = {
   },
   "nav": {
     "dashboard": "Dashboard",
+    "deviceMonitor": "Device Monitor",
     "systemManagement": "System Management",
     "systemConfig": "System Configuration",
     "themeConfig": "Theme Configuration",
@@ -3016,6 +3017,7 @@ window.XBOARD_TRANSLATIONS['en-US'] = {
   },
   "sidebar": {
     "dashboard": "Dashboard",
+    "deviceMonitor": "Device Monitor",
     "systemManagement": "System Management",
     "systemConfig": "System Configuration",
     "themeConfig": "Theme Configuration",
@@ -3031,5 +3033,55 @@ window.XBOARD_TRANSLATIONS['en-US'] = {
     "couponManagement": "Coupon Management",
     "userManagement": "User Management",
     "ticketManagement": "Ticket Management"
+  },
+  "monitor": {
+    "pageTitle": "Device Monitor",
+    "localServer": "Xboard Server",
+    "nodeSection": "Node Monitoring",
+    "settingsButton": "Settings",
+    "status": {
+      "online": "Online",
+      "offline": "Offline",
+      "unknown": "Not Connected"
+    },
+    "systemInfo": {
+      "title": "System Info",
+      "hostname": "Hostname",
+      "cpuModel": "CPU Model",
+      "ipv4": "IPv4",
+      "ipv6": "IPv6",
+      "uptime": "Uptime",
+      "uptimeFormat": "{days}d {hours}h"
+    },
+    "gauges": {
+      "cpu": "CPU",
+      "ram": "RAM",
+      "disk": "Disk",
+      "swap": "Swap"
+    },
+    "charts": {
+      "cpu": "CPU Usage",
+      "ram": "Memory Usage",
+      "network": "Network Bandwidth",
+      "diskIo": "Disk I/O"
+    },
+    "runtime": {
+      "title": "Runtime Info",
+      "memory": "Memory",
+      "goroutines": "Goroutines",
+      "childNodes": "Child Nodes"
+    },
+    "config": {
+      "localTitle": "Local Card Settings",
+      "nodesTitle": "Node Card Settings",
+      "showSystemInfo": "System Info",
+      "showGauges": "Gauges",
+      "showCharts": "Charts",
+      "showRuntime": "Runtime Info"
+    },
+    "error": {
+      "fetchFailed": "Failed to fetch monitoring data",
+      "lastOnline": "Last Online"
+    }
   }
 };
