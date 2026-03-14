@@ -1,4 +1,4 @@
-# Xboard
+# Xboard2
 
 <div align="center">
 
@@ -11,7 +11,7 @@
 
 ## 📖 Introduction
 
-Xboard is a modern panel system built on Laravel 11, focusing on providing a clean and efficient user experience.
+Xboard2 is a modern panel system built on Laravel 11, focusing on providing a clean and efficient user experience. Forked from [Xboard](https://github.com/cedar2025/Xboard) with security enhancements and additional features.
 
 ## ✨ Features
 
@@ -24,8 +24,8 @@ Xboard is a modern panel system built on Laravel 11, focusing on providing a cle
 ## 🚀 Quick Start
 
 ```bash
-git clone -b compose --depth 1 https://github.com/cedar2025/Xboard && \
-cd Xboard && \
+git clone -b compose --depth 1 https://github.com/jungann2/Xboard2 && \
+cd Xboard2 && \
 docker compose run -it --rm \
     -e ENABLE_SQLITE=true \
     -e ENABLE_REDIS=true \
@@ -43,7 +43,7 @@ docker compose up -d
 > 🚨 **Important:** This version involves significant changes. Please strictly follow the upgrade documentation and backup your database before upgrading. Note that upgrading and migration are different processes, do not confuse them.
 
 ### Development Guides
-- [Plugin Development Guide](./docs/en/development/plugin-development-guide.md) - Complete guide for developing XBoard plugins
+- [Plugin Development Guide](./docs/en/development/plugin-development-guide.md) - Complete guide for developing Xboard2 plugins
 
 ### Deployment Guides
 - [Deploy with 1Panel](./docs/en/installation/1panel.md)
@@ -63,7 +63,7 @@ docker compose up -d
 - Docker 部署（推荐）或 LNMP 环境
 - 内存：≥ 512MB（含数据库和 Redis）
 
-> Debian 推荐理由：Xboard 依赖 PHP 8.2+、Redis、MySQL 等标准 LEMP 栈，Debian 12 官方源直接提供 PHP 8.2，Docker 支持最稳定，系统开销最小。Ubuntu 同样兼容，CentOS 需通过 Remi 源安装 PHP 8.2。
+> Debian 推荐理由：Xboard2 依赖 PHP 8.2+、Redis、MySQL 等标准 LEMP 栈，Debian 12 官方源直接提供 PHP 8.2，Docker 支持最稳定，系统开销最小。Ubuntu 同样兼容，CentOS 需通过 Remi 源安装 PHP 8.2。
 
 ## 🛠️ Tech Stack
 
@@ -144,4 +144,4 @@ Issues and Pull Requests are welcome to help improve the project.
 
 ## 📈 Star History
 
-[![Stargazers over time](https://starchart.cc/cedar2025/Xboard.svg)](https://starchart.cc/cedar2025/Xboard)
+[![Stargazers over time](https://starchart.cc/jungann2/Xboard2.svg)](https://starchart.cc/jungann2/Xboard2)

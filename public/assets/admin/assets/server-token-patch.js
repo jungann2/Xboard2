@@ -1,5 +1,5 @@
 /**
- * Server Token Security Patch for Xboard Admin Panel
+ * Server Token Security Patch for Xboard2 Admin Panel
  * 替换节点配置页面中 server_token 的不安全前端生成逻辑（Math.random）
  * 改为调用后端 CSPRNG API，支持自定义前缀/后缀
  */
@@ -21,7 +21,7 @@
       var raw = localStorage.getItem(key);
       if (!raw) return null;
       var parsed = JSON.parse(raw);
-      // Xboard 的 storage wrapper 存储格式: { value, time, expire }
+      // Xboard2 的 storage wrapper 存储格式: { value, time, expire }
       if (parsed && parsed.expire && parsed.expire < Date.now()) return null;
       return parsed?.value || null;
     } catch (e) {
@@ -296,5 +296,5 @@
     patchGenerateButton();
   }
 
-  console.log('[Xboard] Server Token Security Patch loaded');
+  console.log('[Xboard2] Server Token Security Patch loaded');
 })();
